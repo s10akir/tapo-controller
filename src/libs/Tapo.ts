@@ -4,7 +4,10 @@ import {
   listDevices as tapoListDevices,
   turnOn as tapoTurnOn,
   turnOff as tapoTurnOff,
+  setColour as tapoSetColor,
+  setBrightness as tapoSetBrightness,
   TapoDevice,
+  TapoDeviceKey,
 } from "tp-link-tapo-connect";
 
 export async function getLoginToken() {
@@ -33,10 +36,32 @@ export async function getDevice(deviceId: string) {
   return device;
 }
 
-export async function turnOnDevice(device: TapoDevice) {
-  tapoTurnOn(await getDeviceToken(device));
+export async function turnOnDevice(
+  device: TapoDevice,
+  deviceToken?: TapoDeviceKey
+) {
+  tapoTurnOn(deviceToken || (await getDeviceToken(device)));
 }
 
-export async function turnOffDevice(device: TapoDevice) {
-  tapoTurnOff(await getDeviceToken(device));
+export async function turnOffDevice(
+  device: TapoDevice,
+  deviceToken?: TapoDeviceKey
+) {
+  tapoTurnOff(deviceToken || (await getDeviceToken(device)));
+}
+
+export async function setColor(
+  device: TapoDevice,
+  color: string,
+  deviceToken?: TapoDeviceKey
+) {
+  tapoSetColor(deviceToken || (await getDeviceToken(device)), color);
+}
+
+export async function setBrightness(
+  device: TapoDevice,
+  brightness: number,
+  deviceToken?: TapoDeviceKey
+) {
+  tapoSetBrightness(deviceToken || (await getDeviceToken(device)), brightness);
 }

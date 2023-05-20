@@ -2,8 +2,11 @@ import Router from "express";
 import {
   listDevices,
   getDevice,
+  getDeviceToken,
   turnOnDevice,
   turnOffDevice,
+  setColor,
+  setBrightness,
 } from "../libs/Tapo";
 
 export const deviceRouter = Router();
@@ -28,6 +31,33 @@ deviceRouter.post("/:id", async (req, res) => {
 
   if (device) {
     turnOnDevice(device);
+    return res.sendStatus(200);
+  } else {
+    res.sendStatus(404);
+  }
+});
+
+deviceRouter.patch("/:id", async (req, res) => {
+  const device = await getDevice(req.params.id);
+
+  console.log(req.body);
+
+  // TODO: imprements validation
+  const color = req.body.color;
+  const brightness = req.body.brightness;
+
+  if (device) {
+    const deviceToken = await getDeviceToken(device);
+
+    // TODO: inprements action validation
+    if (color) {
+      await setColor(device, color, deviceToken);
+    }
+
+    if (brightness) {
+      await setBrightness(device, brightness, deviceToken);
+    }
+
     return res.sendStatus(200);
   } else {
     res.sendStatus(404);
