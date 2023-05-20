@@ -1,0 +1,19 @@
+{
+  "name": "tapo-controller",
+  "version": "1.0.0",
+  "main": "dist/main.js",
+  "repository": "git@github.com:s10akir/tapo-controller.git",
+  "author": "Akira Shinohara <akira.shinohara@mojamoja.cloud>",
+  "license": "MIT",
+  "scripts": {
+    "start": "ts-node src/main.ts",
+    "dev": "ts-node-dev src/main.ts"
+  },
+  "devDependencies": {
+    "ts-node-dev": "^2.0.0"
+  },
+  "dependencies": {
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.4"
+  }
+}
