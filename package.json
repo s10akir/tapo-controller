@@ -7,12 +7,15 @@
   "license": "MIT",
   "scripts": {
     "start": "ts-node src/main.ts",
-    "dev": "ts-node-dev src/main.ts"
+    "dev": "DEBUG=* ts-node-dev src/main.ts"
   },
   "devDependencies": {
+    "@types/express": "^4.17.17",
+    "debug": "^4.3.4",
     "ts-node-dev": "^2.0.0"
   },
   "dependencies": {
+    "express": "^4.18.2",
     "ts-node": "^10.9.1",
     "typescript": "^5.0.4"
   }
