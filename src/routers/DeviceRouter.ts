@@ -11,9 +11,9 @@ import {
 
 export const deviceRouter = Router();
 
-deviceRouter.get("/", async (_, res) => {
+deviceRouter.get("/", async (req, res) => {
   try {
-    const devices = await listDevices();
+    const devices = await listDevices(req.app.get("loginToken"));
     res.send(devices);
   } catch (e) {
     console.error(e);
@@ -23,7 +23,7 @@ deviceRouter.get("/", async (_, res) => {
 
 deviceRouter.get("/:id", async (req, res) => {
   try {
-    const device = await getDevice(req.params.id);
+    const device = await getDevice(req.app.get("loginToken"), req.params.id);
 
     if (device) {
       return res.send(device);
@@ -38,7 +38,7 @@ deviceRouter.get("/:id", async (req, res) => {
 
 deviceRouter.post("/:id", async (req, res) => {
   try {
-    const device = await getDevice(req.params.id);
+    const device = await getDevice(req.app.get("loginToken"), req.params.id);
 
     if (device) {
       turnOnDevice(device);
@@ -54,7 +54,7 @@ deviceRouter.post("/:id", async (req, res) => {
 
 deviceRouter.patch("/:id", async (req, res) => {
   try {
-    const device = await getDevice(req.params.id);
+    const device = await getDevice(req.app.get("loginToken"), req.params.id);
 
     console.log(req.body);
 
@@ -86,7 +86,7 @@ deviceRouter.patch("/:id", async (req, res) => {
 
 deviceRouter.delete("/:id", async (req, res) => {
   try {
-    const device = await getDevice(req.params.id);
+    const device = await getDevice(req.app.get("loginToken"), req.params.id);
 
     if (device) {
       await turnOffDevice(device);

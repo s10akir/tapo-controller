@@ -25,12 +25,12 @@ export async function getDeviceToken(device: TapoDevice) {
   );
 }
 
-export async function listDevices() {
-  return await tapoListDevices(await getLoginToken());
+export async function listDevices(loginToken: string) {
+  return await tapoListDevices(loginToken);
 }
 
-export async function getDevice(deviceId: string) {
-  const devices = await listDevices();
+export async function getDevice(loginToken: string, deviceId: string) {
+  const devices = await listDevices(loginToken);
   const device = devices.find((device) => device.deviceId === deviceId);
 
   return device;

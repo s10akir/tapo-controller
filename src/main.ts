@@ -1,6 +1,7 @@
 import express from "express";
 
 import { deviceRouter } from "./routers/deviceRouter";
+import { getLoginToken } from "./libs/Tapo";
 
 const app = express();
 
@@ -13,6 +14,8 @@ app.get("/", (_, res) => {
 
 app.use("/devices/", deviceRouter);
 
-app.listen(process.env.PORT || 3000, () => {
+app.listen(process.env.PORT || 3000, async () => {
+  app.set("loginToken", await getLoginToken());
+
   console.log("Server is running!");
 });
